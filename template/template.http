@@ -1,0 +1,13 @@
+### Get OAuth token
+# @name client_credentials_grant
+POST {{$dotenv auth-url}}/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id={{$dotenv client-id}}&client_secret={{$dotenv client-secret}}
+
+###
+@token = {{client_credentials_grant.response.body.access_token}}
+
+### Sample request
+GET {{$dotenv srv-url}}/odata/v4/sample/$metadata
+Authorization: Bearer {{token}}
